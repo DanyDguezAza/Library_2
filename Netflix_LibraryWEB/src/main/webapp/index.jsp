@@ -9,6 +9,10 @@
 <div class="container mt-5">
     <h1 class="text-center">¡Bienvenido a la Biblioteca Digital!</h1>
     <p class="text-center">Proyecto Java Web con MongoDB</p>
+
+    <nav>
+        <li><a href="login.jsp">Registro</a></li>
+    </nav>
 </div>
 </body>
 </html>
