@@ -1,0 +1,40 @@
+<%@ page import="beans.Usuario" %>
+<%
+    Usuario u = (Usuario) session.getAttribute("usuario");
+%>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="libros">📚 Biblioteca Digital</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navContenido">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navContenido">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <% if (u != null) { %>
+                <li class="nav-item">
+                    <a class="nav-link" href="mislibros.jsp">⭐ Mis Listas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="perfil.jsp">👤 Mi Perfil</a>
+                </li>
+                <% if ("admin".equals(u.getRol())) { %>
+                <li class="nav-item">
+                    <a class="nav-link" href="admin.jsp">🔧 Panel Admin</a>
+                </li>
+                <% } %>
+                <li class="nav-item">
+                    <a class="nav-link text-danger" href="logout">Salir</a>
+                </li>
+                <% } else { %>
+                <li class="nav-item">
+                    <a class="nav-link" href="login.jsp">Iniciar Sesión</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="registro.jsp">Registrarse</a>
+                </li>
+                <% } %>
+            </ul>
+        </div>
+    </div>
+</nav>
