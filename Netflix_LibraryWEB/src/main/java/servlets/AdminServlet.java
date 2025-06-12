@@ -22,7 +22,8 @@ public class AdminServlet extends HttpServlet {
             Document nuevo = new Document("titulo", request.getParameter("titulo"))
                     .append("autor", request.getParameter("autor"))
                     .append("genero", request.getParameter("genero"))
-                    .append("sinopsis", request.getParameter("sinopsis"));
+                    .append("sinopsis", request.getParameter("sinopsis"))
+                    .append("portada",request.getParameter("portada"));
             librosCol.insertOne(nuevo);
         } else if ("eliminar".equals(accion)) {
             String id = request.getParameter("id");

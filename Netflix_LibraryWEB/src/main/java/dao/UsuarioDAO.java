@@ -75,4 +75,29 @@ public class UsuarioDAO {
         }
         return resultado;
     }
+    public void actualizarUsuario(Usuario u) {
+        Document update = new Document()
+                .append("nombre", u.getNombre())
+                .append("apellido_paterno", u.getApellido_paterno())
+                .append("apellido_materno", u.getApellido_materno())
+                .append("fecha_nacimiento", u.getFecha_nacimiento());
+
+        if (u.getContraseña() != null && !u.getContraseña().isEmpty()) {
+            update.append("contraseña", u.getContraseña());
+        }
+
+        coleccion.updateOne(
+                new Document("correo", u.getCorreo()),
+                new Document("$set", update)
+        );
+    }
+
+    public void quitarLibroDeLista(String correo, String lista, String idLibro) {
+        coleccion.updateOne(
+                new Document("correo", correo),
+                new Document("$pull", new Document("listas." + lista, idLibro))
+        );
+    }
+
+
 }

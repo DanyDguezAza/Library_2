@@ -5,7 +5,8 @@ import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 import util.MongoDBUtil;
-
+import dao.LibroDAO;
+import beans.Libro;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -17,18 +18,11 @@ import java.util.List;
 @WebServlet("/libros")
 public class LibrosServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        MongoDatabase db = MongoDBUtil.getDatabase();
-        MongoCollection<Document> librosCol = db.getCollection("libros");
-
-        List<Document> libros = new ArrayList<>();
-        try (MongoCursor<Document> cursor = librosCol.find().iterator()) {
-            while (cursor.hasNext()) {
-                libros.add(cursor.next());
-            }
-        }
+        LibroDAO dao = new LibroDAO();
+        List<Libro> libros = dao.obtenerTodos();
 
         request.setAttribute("libros", libros);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/libros.jsp");
-        dispatcher.forward(request, response);
+        request.getRequestDispatcher("libros.jsp").forward(request, response);
     }
 }
+

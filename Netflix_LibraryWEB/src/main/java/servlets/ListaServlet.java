@@ -20,10 +20,16 @@ public class ListaServlet extends HttpServlet {
         }
 
         String idLibro = request.getParameter("idLibro");
-        String accion = request.getParameter("accion"); // por_leer, leidos, favoritos
+        String accion = request.getParameter("accion");
 
         UsuarioDAO dao = new UsuarioDAO();
-        dao.agregarLibroALista(u.getCorreo(), accion, idLibro);
+
+        if (accion.startsWith("quitar_")) {
+            String lista = accion.replace("quitar_", "");
+            dao.quitarLibroDeLista(u.getCorreo(), lista, idLibro);
+        } else {
+            dao.agregarLibroALista(u.getCorreo(), accion, idLibro);
+        }
 
         response.sendRedirect("libros");
     }
