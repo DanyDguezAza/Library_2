@@ -20,7 +20,7 @@ public class LoginServlet extends HttpServlet {
         if (u != null && u.getContraseña().equals(contraseña)) {
             HttpSession sesion = request.getSession();
             sesion.setAttribute("usuario", u);
-            response.sendRedirect("perfil.jsp");
+            response.sendRedirect("principal.jsp");
         } else {
             response.sendRedirect("login.jsp?error=1");
         }
