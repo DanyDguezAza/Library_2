@@ -20,6 +20,18 @@
             <input type="text" name="nombre" class="form-control" required />
         </div>
         <div class="mb-3">
+            <label class="form-label">Apellido paterno:</label>
+            <input type="text" name="apellido_paterno" class="form-control" required />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Apellido materno</label>
+            <input type="text" name="apellido_materno" class="form-control" required />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Fecha de nacimiento</label>
+            <input type="date" name="fecha_nacimiento" class="form-control" required />
+        </div>
+        <div class="mb-3">
             <label class="form-label">Correo</label>
             <input type="email" name="correo" class="form-control" required />
         </div>

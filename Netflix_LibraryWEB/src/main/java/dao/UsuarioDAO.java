@@ -6,6 +6,8 @@ import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 import org.bson.types.ObjectId;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import util.MongoDBUtil;
@@ -21,6 +23,9 @@ public class UsuarioDAO {
 
     public void registrarUsuario(Usuario u) {
         Document doc = new Document("nombre", u.getNombre())
+                .append("apellido_paterno", u.getApellido_paterno())
+                .append("apellido_materno", u.getApellido_materno())
+                .append("fecha_nacimiento", u.getFecha_nacimiento())
                 .append("correo", u.getCorreo())
                 .append("contraseña", u.getContraseña());
 
