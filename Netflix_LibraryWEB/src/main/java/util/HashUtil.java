@@ -1,22 +1,28 @@
 package util;
 
-import java.security.MessageDigest;
+import org.mindrot.jbcrypt.BCrypt;
 
 public class HashUtil {
 
-    public static String sha256(String input) {
-        try {
-            MessageDigest md = MessageDigest.getInstance("SHA-256");
-            byte[] hash = md.digest(input.getBytes("UTF-8"));
-
-            StringBuilder sb = new StringBuilder();
-            for (byte b : hash) {
-                sb.append(String.format("%02x", b));
-            }
-
-            return sb.toString();
-        } catch (Exception e) {
-            throw new RuntimeException("Error al generar el hash SHA-256", e);
-        }
+    public static String hash(String plainPassword) {
+        return BCrypt.hashpw(plainPassword, BCrypt.gensalt(12));
     }
+
+    public static boolean verificar(String plainPassword, String hashedPassword) {
+        return BCrypt.checkpw(plainPassword, hashedPassword);
+    }
+
+    public static boolean esHash(String password) {
+        // Detecta si ya es un hash BCrypt
+        return password != null && password.startsWith("$2a$");
+    }
+
+    public static String hashPassword(String plainText) {
+        return BCrypt.hashpw(plainText, BCrypt.gensalt(12));
+    }
+
+    public static boolean checkPassword(String plainText, String hashed) {
+        return BCrypt.checkpw(plainText, hashed);
+    }
+
 }

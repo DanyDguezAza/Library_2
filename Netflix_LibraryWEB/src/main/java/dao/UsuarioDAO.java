@@ -1,14 +1,13 @@
 package dao;
 
 import beans.Usuario;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoCursor;
-import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.*;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import util.MongoDBUtil;
 
@@ -44,6 +43,8 @@ public class UsuarioDAO {
             Usuario u = new Usuario();
             u.setId(doc.getObjectId("_id").toHexString());
             u.setNombre(doc.getString("nombre"));
+            u.setApellido_paterno(doc.getString("apellido_paterno"));
+            u.setApellido_materno(doc.getString("apellido_materno"));
             u.setCorreo(doc.getString("correo"));
             u.setContraseña(doc.getString("contraseña"));
             u.setRol(doc.getString("rol") != null ? doc.getString("rol") : "usuario");
@@ -98,6 +99,26 @@ public class UsuarioDAO {
                 new Document("$pull", new Document("listas." + lista, idLibro))
         );
     }
+    public void ejemploTransaccionAgregarYLog(String correo, String nombre) {
+        MongoClient mongoClient = MongoDBUtil.getClient(); // Asegúrate de tenerlo
+        try (ClientSession session = mongoClient.startSession()) {
+            session.startTransaction();
 
+            MongoDatabase db = mongoClient.getDatabase("tu_base");
+
+            MongoCollection<Document> usuarios = db.getCollection("usuarios");
+            MongoCollection<Document> logs = db.getCollection("logs");
+
+            usuarios.insertOne(session, new Document("correo", correo).append("nombre", nombre));
+
+            logs.insertOne(session, new Document("evento", "usuario_creado")
+                    .append("correo", correo)
+                    .append("fecha", new Date()));
+
+            session.commitTransaction();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 }

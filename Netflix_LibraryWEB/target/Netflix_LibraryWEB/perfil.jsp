@@ -105,7 +105,7 @@
     </div>
     <button type="submit" class="btn btn-netflix w-100">Actualizar perfil</button>
     <div class="text-center mt-3">
-      <a href="principal.jsp" class="btn btn-outline-light">⬅️ Volver al inicio</a>
+      <a href="principal" class="btn btn-outline-light">⬅️ Volver al inicio</a>
     </div>
 
   </form>

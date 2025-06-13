@@ -132,11 +132,12 @@
         </div>
         <div class="mb-3">
             <label class="form-label">Contraseña</label>
-            <input type="password" id="contraseña" name="contraseña" class="form-control" required
-                   minlength="8"
-                   pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$"
+            <input type="password" id="contraseña" name="contraseña" class="form-control"
+                   required minlength="8"
+                   pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$"
                    title="Debe contener al menos 8 caracteres, una mayúscula, una minúscula y un número"/>
-            <div class="form-text">Debe contener mayúsculas, minúsculas y números.</div>
+
+            <div class="form-text">Mínimo 8 caracteres con mayúsculas, minúsculas y números</div>
         </div>
         <button type="submit" class="btn btn-netflix">Registrarse</button>
     </form>
